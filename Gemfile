@@ -28,8 +28,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # gem 'rack-cors'
 
 # Sentry error monitoring
-gem 'sentry-ruby', '~> 4.6.4'
 gem 'sentry-rails', '~> 4.6.4'
+gem 'sentry-ruby', '~> 4.6.4'
 
 # Set Rails-only ENV with Figaro
 gem 'figaro', '~> 1.2'
