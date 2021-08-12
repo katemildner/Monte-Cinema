@@ -32,6 +32,3 @@
 
 # Ignore application configuration
 /config/application.yml
-
-# Ignore configuration of Rubocop(s)
-.rubocop.yml
