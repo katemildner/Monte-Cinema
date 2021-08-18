@@ -1,8 +1,8 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: Monte-Cinema-DB
+  database: MonteCinemaDB
   host: localhost
   pool: 5
-  username: montecinema
+  username: monte-cinema
   password: <%= ENV['MONTE_CINEMA_PASS_DB'] %>
