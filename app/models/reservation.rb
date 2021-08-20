@@ -3,5 +3,5 @@
 class Reservation < ApplicationRecord
   belongs_to :screening
   has_many :seat_reservations
-  has_one :status
+  belongs_to :status
 end
