@@ -4,3 +4,8 @@ AllCops:
   Exclude:
     - 'bin/bundle'
     - 'test/**/*'
+    - 'db/schema.rb'
+
+Style/Documentation:
+  Exclude:
+    - 'db/migrate/*'
