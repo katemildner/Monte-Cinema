@@ -2,6 +2,6 @@
 
 class Reservation < ApplicationRecord
   belongs_to :screening
-  has_many :seat_reservations
+  has_many :seat_reservations, dependent: :destroy
   belongs_to :status
 end

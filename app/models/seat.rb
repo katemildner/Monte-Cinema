@@ -5,5 +5,5 @@ class Seat < ApplicationRecord
   validates :reserved, presence: true
 
   belongs_to :cinema_hall
-  has_many :reservations
+  has_many :reservations, dependent: :destroy
 end

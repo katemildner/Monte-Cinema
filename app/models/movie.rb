@@ -7,5 +7,5 @@ class Movie < ApplicationRecord
   validates :genre, presence: true
   validates :duration, presence: true
 
-  has_many :screenings
+  has_many :screenings, dependent: :destroy
 end
