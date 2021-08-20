@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CinemaHall < ApplicationRecord
   validates :name, presence: true
   validates :number_of_rows, presence: true, numericality: { only_integer: true }
