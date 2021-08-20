@@ -6,4 +6,6 @@ class Movie < ApplicationRecord
   validates :director, presence: true
   validates :genre, presence: true
   validates :duration, presence: true
+
+  has_many :screenings
 end
