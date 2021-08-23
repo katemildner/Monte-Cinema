@@ -34,8 +34,12 @@ ActiveRecord::Schema.define(version: 2021_08_20_135157) do
   end
 
   create_table "reservations", force: :cascade do |t|
+    t.bigint "screening_id", null: false
+    t.bigint "status_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["screening_id"], name: "index_reservations_on_screening_id"
+    t.index ["status_id"], name: "index_reservations_on_status_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -46,20 +50,30 @@ ActiveRecord::Schema.define(version: 2021_08_20_135157) do
 
   create_table "screenings", force: :cascade do |t|
     t.datetime "starting_date_and_time", null: false
+    t.bigint "cinema_hall_id", null: false
+    t.bigint "movie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cinema_hall_id"], name: "index_screenings_on_cinema_hall_id"
+    t.index ["movie_id"], name: "index_screenings_on_movie_id"
   end
 
   create_table "seat_reservations", force: :cascade do |t|
+    t.bigint "reservation_id", null: false
+    t.bigint "seat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["reservation_id"], name: "index_seat_reservations_on_reservation_id"
+    t.index ["seat_id"], name: "index_seat_reservations_on_seat_id"
   end
 
   create_table "seats", force: :cascade do |t|
     t.string "seat_name", null: false
     t.boolean "reserved", null: false
+    t.bigint "cinema_hall_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cinema_hall_id"], name: "index_seats_on_cinema_hall_id"
   end
 
   create_table "statuses", force: :cascade do |t|
@@ -68,4 +82,11 @@ ActiveRecord::Schema.define(version: 2021_08_20_135157) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "reservations", "screenings"
+  add_foreign_key "reservations", "statuses"
+  add_foreign_key "screenings", "cinema_halls"
+  add_foreign_key "screenings", "movies"
+  add_foreign_key "seat_reservations", "reservations"
+  add_foreign_key "seat_reservations", "seats"
+  add_foreign_key "seats", "cinema_halls"
 end
