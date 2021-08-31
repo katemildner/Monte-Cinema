@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CinemaHallsController < ApplicationController
-  before_action :set_cinema_hall, only: [:show, :update, :destroy]
+  before_action :set_cinema_hall, only: %i[show update destroy]
 
   # GET /cinema_halls
   def index
@@ -39,13 +41,14 @@ class CinemaHallsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cinema_hall
-      @cinema_hall = CinemaHall.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cinema_hall_params
-      params.fetch(:cinema_hall, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cinema_hall
+    @cinema_hall = CinemaHall.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def cinema_hall_params
+    params.fetch(:cinema_hall, {})
+  end
 end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ScreeningsController < ApplicationController
-  before_action :set_screening, only: [:show, :update, :destroy]
+  before_action :set_screening, only: %i[show update destroy]
 
   # GET /screenings
   def index
@@ -39,13 +41,14 @@ class ScreeningsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_screening
-      @screening = Screening.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def screening_params
-      params.fetch(:screening, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_screening
+    @screening = Screening.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def screening_params
+    params.fetch(:screening, {})
+  end
 end
