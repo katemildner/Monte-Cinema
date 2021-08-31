@@ -49,6 +49,6 @@ class ScreeningsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def screening_params
-    params.fetch(:screening, {})
+    params.require(:screening).permit(:starting_date_and_time, :cinema_hall_id, :movie_id)
   end
 end
