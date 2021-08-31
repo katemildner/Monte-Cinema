@@ -49,6 +49,6 @@ class CinemaHallsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def cinema_hall_params
-    params.fetch(:cinema_hall, {})
+    params.require(:cinema_hall).permit(:name, :number_of_rows, :number_of_seats_per_row)
   end
 end
