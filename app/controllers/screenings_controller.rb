@@ -17,7 +17,7 @@ class ScreeningsController < ApplicationController
     @screening = Screening.new(screening_params)
 
     if @screening.save
-      render json: @screening, status: :created, location: @screening
+      render json: @screening, status: :created
     else
       render json: @screening.errors, status: :unprocessable_entity
     end
