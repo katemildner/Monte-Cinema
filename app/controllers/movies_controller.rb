@@ -6,18 +6,18 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
 
-    render json: @movies
+    render json: @movies, except: forbidden_params
   end
 
   def show
-    render json: @movie
+    render json: @movie, except: forbidden_params
   end
 
   def create
     @movie = Movie.new(movie_params)
 
     if @movie.save
-      render json: @movie, status: :created
+      render json: @movie, status: :created, except: forbidden_params
     else
       render json: @movie.errors, status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
-      render json: @movie
+      render json: @movie, except: forbidden_params
     else
       render json: @movie.errors, status: :unprocessable_entity
     end
@@ -43,5 +43,9 @@ class MoviesController < ApplicationController
 
   def movie_params
     params.require(:movie).permit(:title, :description, :director, :genre, :duration)
+  end
+
+  def forbidden_params
+    %w[created_at updated_at]
   end
 end

@@ -6,18 +6,18 @@ class ScreeningsController < ApplicationController
   def index
     @screenings = Screening.all
 
-    render json: @screenings
+    render json: @screenings, except: forbidden_params
   end
 
   def show
-    render json: @screening
+    render json: @screening, except: forbidden_params
   end
 
   def create
     @screening = Screening.new(screening_params)
 
     if @screening.save
-      render json: @screening, status: :created
+      render json: @screening, status: :created, except: forbidden_params
     else
       render json: @screening.errors, status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class ScreeningsController < ApplicationController
 
   def update
     if @screening.update(screening_params)
-      render json: @screening
+      render json: @screening, except: forbidden_params
     else
       render json: @screening.errors, status: :unprocessable_entity
     end
@@ -43,5 +43,9 @@ class ScreeningsController < ApplicationController
 
   def screening_params
     params.require(:screening).permit(:starting_date_and_time, :cinema_hall_id, :movie_id)
+  end
+
+  def forbidden_params
+    %w[created_at updated_at]
   end
 end
