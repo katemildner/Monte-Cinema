@@ -7,5 +7,12 @@ AllCops:
     - 'test/**/*'
     - 'db/schema.rb'
 
+Layout/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/**/*'
+
 Style/Documentation:
   Enabled: false
