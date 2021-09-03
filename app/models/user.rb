@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  validates :email, presence: true
+  validates :points_earned, presence: true, numericality: { only_integer: true }
+  validates :username, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
