@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Voucher < ApplicationRecord
   validates :code, presence: true
   validates :expiration_date, presence: true
