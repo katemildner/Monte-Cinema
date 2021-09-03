@@ -8,5 +8,4 @@ AllCops:
     - 'db/schema.rb'
 
 Style/Documentation:
-  Exclude:
-    - 'db/migrate/*'
+  Enabled: false
