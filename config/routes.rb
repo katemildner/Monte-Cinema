@@ -3,8 +3,8 @@
 Rails.application.routes.draw do
   resources :users
   devise_for :users
-  resources :cinema_halls
-  resources :movies
-  resources :reservations
-  resources :screenings
+  resources :cinema_halls, only: %i[index show update create destroy]
+  resources :movies, only: %i[index show update create destroy]
+  resources :reservations, only: %i[index show create destroy]
+  resources :screenings, only: %i[index show update create destroy]
 end

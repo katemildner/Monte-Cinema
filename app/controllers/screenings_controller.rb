@@ -4,52 +4,49 @@ class ScreeningsController < ApplicationController
   before_action :set_screening, only: %i[show update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
 
-  # GET /screenings
   def index
     @screenings = Screening.all
 
-    render json: @screenings
+    render json: @screenings, except: forbidden_params
   end
 
-  # GET /screenings/1
   def show
-    render json: @screening
+    render json: @screening, except: forbidden_params
   end
 
-  # POST /screenings
   def create
     @screening = Screening.new(screening_params)
 
     if @screening.save
-      render json: @screening, status: :created, location: @screening
+      render json: @screening, status: :created, except: forbidden_params
     else
       render json: @screening.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /screenings/1
   def update
     if @screening.update(screening_params)
-      render json: @screening
+      render json: @screening, except: forbidden_params
     else
       render json: @screening.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /screenings/1
   def destroy
     @screening.destroy
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_screening
     @screening = Screening.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def screening_params
     params.require(:screening).permit(:starting_date_and_time, :cinema_hall_id, :movie_id)
+  end
+
+  def forbidden_params
+    %w[created_at updated_at]
   end
 end
