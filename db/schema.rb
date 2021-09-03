@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_31_194420) do
+ActiveRecord::Schema.define(version: 2021_09_03_103101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,10 +36,12 @@ ActiveRecord::Schema.define(version: 2021_08_31_194420) do
   create_table "reservations", force: :cascade do |t|
     t.bigint "screening_id", null: false
     t.bigint "status_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["screening_id"], name: "index_reservations_on_screening_id"
     t.index ["status_id"], name: "index_reservations_on_status_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -82,7 +84,18 @@ ActiveRecord::Schema.define(version: 2021_08_31_194420) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_vouchers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "voucher_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_vouchers_on_user_id"
+    t.index ["voucher_id"], name: "index_user_vouchers_on_voucher_id"
+  end
+
   create_table "users", force: :cascade do |t|
+    t.integer "points_earned"
+    t.string "username"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -94,11 +107,23 @@ ActiveRecord::Schema.define(version: 2021_08_31_194420) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vouchers", force: :cascade do |t|
+    t.string "code"
+    t.datetime "expiration_date"
+    t.integer "points_required"
+    t.string "reward"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "reservations", "screenings"
   add_foreign_key "reservations", "statuses"
+  add_foreign_key "reservations", "users"
   add_foreign_key "screenings", "cinema_halls"
   add_foreign_key "screenings", "movies"
   add_foreign_key "seat_reservations", "reservations"
   add_foreign_key "seat_reservations", "seats"
   add_foreign_key "seats", "cinema_halls"
+  add_foreign_key "user_vouchers", "users"
+  add_foreign_key "user_vouchers", "vouchers"
 end
