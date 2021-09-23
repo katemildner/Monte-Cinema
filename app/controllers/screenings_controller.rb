@@ -2,6 +2,7 @@
 
 class ScreeningsController < ApplicationController
   before_action :set_screening, only: %i[show update destroy]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     @screenings = Screening.all
